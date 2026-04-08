@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ui.controllers.FileController"
+      spacing="24" styleClass="file-view">
+
+    <!-- File Selection Card -->
+    <VBox styleClass="card" spacing="16">
+        <padding><Insets top="24" right="28" bottom="24" left="28"/></padding>
+        <Label text="File Encryption" styleClass="card-title"/>
+        <Label text="Select a text file to encrypt or decrypt its contents" styleClass="card-subtitle"/>
+
+        <HBox spacing="16" alignment="CENTER_LEFT">
+            <TextField fx:id="filePathField" HBox.hgrow="ALWAYS" styleClass="key-input" promptText="No file selected..." editable="false"/>
+            <Button text="Browse" styleClass="btn-primary" onAction="#onBrowse"/>
+        </HBox>
+
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <VBox HBox.hgrow="ALWAYS" spacing="6">
+                <Label text="Algorithm" styleClass="field-label"/>
+                <ComboBox fx:id="fileAlgoSelector" styleClass="algo-combo" maxWidth="Infinity" promptText="Select Algorithm"/>
+            </VBox>
+            <VBox HBox.hgrow="ALWAYS" spacing="6">
+                <Label text="Key" styleClass="field-label"/>
+                <TextField fx:id="fileKeyField" styleClass="key-input" promptText="Enter key..."/>
+            </VBox>
+        </HBox>
+
+        <HBox spacing="12">
+            <Button text="Encrypt File" styleClass="btn-primary" onAction="#onEncryptFile"/>
+            <Button text="Decrypt File" styleClass="btn-secondary" onAction="#onDecryptFile"/>
+        </HBox>
+    </VBox>
+
+    <!-- File Content Preview -->
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+        <VBox HBox.hgrow="ALWAYS" styleClass="card" spacing="12">
+            <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
+            <Label text="Original Content" styleClass="card-title"/>
+            <TextArea fx:id="fileOriginalContent" VBox.vgrow="ALWAYS" styleClass="code-area" editable="false" wrapText="true" promptText="File content will appear here..."/>
+        </VBox>
+        <VBox alignment="CENTER"><Label text="&#x2192;" styleClass="transform-arrow"/></VBox>
+        <VBox HBox.hgrow="ALWAYS" styleClass="card" spacing="12">
+            <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
+            <HBox alignment="CENTER_LEFT">
+                <Label text="Processed Output" styleClass="card-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Save As..." styleClass="btn-ghost" onAction="#onSaveOutput"/>
+            </HBox>
+            <TextArea fx:id="fileOutputContent" VBox.vgrow="ALWAYS" styleClass="code-area" editable="false" wrapText="true" promptText="Processed content will appear here..."/>
+        </VBox>
+    </HBox>
+
+    <!-- Status -->
+    <HBox styleClass="status-bar" alignment="CENTER_LEFT" spacing="12">
+        <padding><Insets top="8" right="16" bottom="8" left="16"/></padding>
+        <Label fx:id="fileStatusLabel" text="Ready" styleClass="status-text"/>
+    </HBox>
+</VBox>
