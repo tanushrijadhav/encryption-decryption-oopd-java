@@ -2,7 +2,7 @@ package crypto;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.GCMParameterSpec;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.SecureRandom;
@@ -10,27 +10,28 @@ import java.security.spec.KeySpec;
 import java.util.Base64;
 
 /**
- * Production-grade AES-256-GCM encryption with PBKDF2 key derivation.
+ * Blowfish encryption in CBC mode with PBKDF2 key derivation.
+ *
+ * Blowfish is a symmetric block cipher designed by Bruce Schneier (1993).
+ * While older than AES, it remains unbroken and is widely deployed.
  *
  * Security features:
- *   - AES-256 in GCM mode (authenticated encryption — tamper-proof)
- *   - PBKDF2WithHmacSHA256 key derivation (password → 256-bit key)
- *   - Random 16-byte salt per encryption (prevents rainbow tables)
- *   - Random 12-byte IV/nonce per encryption (prevents pattern leaks)
- *   - 128-bit authentication tag (detects any ciphertext tampering)
+ *   - Blowfish in CBC mode with PKCS5 padding
+ *   - PBKDF2WithHmacSHA256 key derivation (password → 128-bit key)
+ *   - Random 16-byte salt per encryption
+ *   - Random 8-byte IV per encryption (Blowfish block size = 64-bit)
  *
  * Output format (Base64-encoded):
- *   [16 bytes salt][12 bytes IV][N bytes ciphertext+authTag]
+ *   [16 bytes salt][8 bytes IV][N bytes ciphertext]
  */
-public class AESStrategy implements EncryptionStrategy {
+public class BlowfishStrategy implements EncryptionStrategy {
 
-    private static final int KEY_LENGTH_BITS   = 256;
+    private static final int KEY_LENGTH_BITS   = 128;
     private static final int SALT_LENGTH_BYTES = 16;
-    private static final int IV_LENGTH_BYTES   = 12;
-    private static final int AUTH_TAG_BITS     = 128;
+    private static final int IV_LENGTH_BYTES   = 8;
     private static final int PBKDF2_ITERATIONS = 100_000;
     private static final String KEY_ALGORITHM  = "PBKDF2WithHmacSHA256";
-    private static final String CIPHER_ALGO    = "AES/GCM/NoPadding";
+    private static final String CIPHER_ALGO    = "Blowfish/CBC/PKCS5Padding";
 
     @Override
     public String encrypt(String data, String key) {
@@ -44,8 +45,7 @@ public class AESStrategy implements EncryptionStrategy {
             SecretKeySpec secretKey = deriveKey(key, salt);
 
             Cipher cipher = Cipher.getInstance(CIPHER_ALGO);
-            GCMParameterSpec gcmSpec = new GCMParameterSpec(AUTH_TAG_BITS, iv);
-            cipher.init(Cipher.ENCRYPT_MODE, secretKey, gcmSpec);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey, new IvParameterSpec(iv));
             byte[] ciphertext = cipher.doFinal(data.getBytes("UTF-8"));
 
             byte[] output = new byte[salt.length + iv.length + ciphertext.length];
@@ -56,7 +56,7 @@ public class AESStrategy implements EncryptionStrategy {
             return Base64.getEncoder().encodeToString(output);
 
         } catch (Exception e) {
-            throw new RuntimeException("AES-256-GCM Encryption failed: " + e.getMessage(), e);
+            throw new RuntimeException("Blowfish Encryption failed: " + e.getMessage(), e);
         }
     }
 
@@ -76,27 +76,23 @@ public class AESStrategy implements EncryptionStrategy {
             SecretKeySpec secretKey = deriveKey(key, salt);
 
             Cipher cipher = Cipher.getInstance(CIPHER_ALGO);
-            GCMParameterSpec gcmSpec = new GCMParameterSpec(AUTH_TAG_BITS, iv);
-            cipher.init(Cipher.DECRYPT_MODE, secretKey, gcmSpec);
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(iv));
             byte[] plaintext = cipher.doFinal(ciphertext);
 
             return new String(plaintext, "UTF-8");
 
-        } catch (javax.crypto.AEADBadTagException e) {
-            throw new RuntimeException("Decryption failed: wrong key or data has been tampered with.", e);
         } catch (Exception e) {
-            throw new RuntimeException("AES-256-GCM Decryption failed: " + e.getMessage(), e);
+            throw new RuntimeException("Blowfish Decryption failed: " + e.getMessage(), e);
         }
     }
 
     /**
-     * Derives a 256-bit AES key from a password using PBKDF2-HMAC-SHA256.
-     * 100,000 iterations make brute-force attacks computationally expensive.
+     * Derives a 128-bit Blowfish key from a password using PBKDF2.
      */
     private SecretKeySpec deriveKey(String password, byte[] salt) throws Exception {
         KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, PBKDF2_ITERATIONS, KEY_LENGTH_BITS);
         SecretKeyFactory factory = SecretKeyFactory.getInstance(KEY_ALGORITHM);
         byte[] keyBytes = factory.generateSecret(spec).getEncoded();
-        return new SecretKeySpec(keyBytes, "AES");
+        return new SecretKeySpec(keyBytes, "Blowfish");
     }
 }

@@ -5,9 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import context.EncryptionContext;
-import crypto.CaesarStrategy;
-import crypto.AESStrategy;
-import crypto.EncryptionStrategy;
+import crypto.StrategyFactory;
 
 public class EncryptionController {
 
@@ -34,7 +32,7 @@ public class EncryptionController {
 
     @FXML
     public void initialize() {
-        algorithmSelector.getItems().addAll("AES (Recommended)", "Caesar Cipher");
+        algorithmSelector.getItems().addAll("AES-256-GCM (Recommended)", "Blowfish-CBC", "Caesar Cipher (Educational)");
         algorithmSelector.getSelectionModel().selectFirst();
 
         inputArea.textProperty().addListener((obs, oldVal, newVal) -> {
@@ -93,13 +91,7 @@ public class EncryptionController {
         }
 
         try {
-            EncryptionStrategy strategy;
-            if (algo != null && algo.startsWith("AES")) {
-                strategy = new AESStrategy();
-            } else {
-                strategy = new CaesarStrategy();
-            }
-            context.setStrategy(strategy);
+            context.setStrategy(StrategyFactory.create(algo));
 
             String result;
             if (encrypt) {

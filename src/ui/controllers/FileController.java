@@ -5,9 +5,7 @@ import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import context.EncryptionContext;
-import crypto.CaesarStrategy;
-import crypto.AESStrategy;
-import crypto.EncryptionStrategy;
+import crypto.StrategyFactory;
 import util.FileHandler;
 
 import java.io.File;
@@ -32,7 +30,7 @@ public class FileController {
 
     @FXML
     public void initialize() {
-        fileAlgoSelector.getItems().addAll("AES (Recommended)", "Caesar Cipher");
+        fileAlgoSelector.getItems().addAll("AES-256-GCM (Recommended)", "Blowfish-CBC", "Caesar Cipher (Educational)");
         fileAlgoSelector.getSelectionModel().selectFirst();
     }
 
@@ -108,13 +106,7 @@ public class FileController {
         }
 
         try {
-            EncryptionStrategy strategy;
-            if (algo != null && algo.startsWith("AES")) {
-                strategy = new AESStrategy();
-            } else {
-                strategy = new CaesarStrategy();
-            }
-            context.setStrategy(strategy);
+            context.setStrategy(StrategyFactory.create(algo));
 
             String result = encrypt ? context.encrypt(content, key) : context.decrypt(content, key);
             fileOutputContent.setText(result);
