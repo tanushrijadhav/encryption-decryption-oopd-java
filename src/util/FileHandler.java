@@ -7,21 +7,21 @@ import java.io.*;
 import java.nio.file.*;
 
 public class FileHandler {
-    public String readFile(String filePath) {
-        try {
-            return new String(Files.readAllBytes(Paths.get(filePath)));
-        } catch (IOException e) {
-            throw new EncryptionException("Could not read file: " + filePath, e);
-        }
+    public static String readFile(String filePath) {
+    try {
+        return new String(Files.readAllBytes(Paths.get(filePath)));
+    } catch (IOException e) {
+        throw new EncryptionException("Could not read file: " + filePath, e);
     }
+}
 
-    public void writeFile(String filePath, String content) {
-        try {
-            Files.write(Paths.get(filePath), content.getBytes());
-        } catch (IOException e) {
-            throw new EncryptionException("Could not write file: " + filePath, e);
-        }
+public static void writeFile(String filePath, String content) {
+    try {
+        Files.write(Paths.get(filePath), content.getBytes());
+    } catch (IOException e) {
+        throw new EncryptionException("Could not write file: " + filePath, e);
     }
+}
 
     public void encryptFile(String inputPath, String outputPath,
                             EncryptionContext context, String key) {

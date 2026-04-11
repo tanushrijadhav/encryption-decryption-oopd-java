@@ -34,4 +34,11 @@ public class EncryptionContext {
             throw new EncryptionException("Key cannot be empty.");
         }
     }
+    public String encrypt(String data, String key) {
+        return executeEncrypt(data, key);
+    }
+
+    public String decrypt(String data, String key) {
+        return executeDecrypt(data, key);
+    }
 }
