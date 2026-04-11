@@ -14,12 +14,18 @@ import java.io.File;
 
 public class FileController {
 
-    @FXML private TextField filePathField;
-    @FXML private ComboBox<String> fileAlgoSelector;
-    @FXML private TextField fileKeyField;
-    @FXML private TextArea fileOriginalContent;
-    @FXML private TextArea fileOutputContent;
-    @FXML private Label fileStatusLabel;
+    @FXML
+    private TextField filePathField;
+    @FXML
+    private ComboBox<String> fileAlgoSelector;
+    @FXML
+    private TextField fileKeyField;
+    @FXML
+    private TextArea fileOriginalContent;
+    @FXML
+    private TextArea fileOutputContent;
+    @FXML
+    private Label fileStatusLabel;
 
     private final EncryptionContext context = new EncryptionContext();
     private File selectedFile;
@@ -35,9 +41,8 @@ public class FileController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select File");
         fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-            new FileChooser.ExtensionFilter("All Files", "*.*")
-        );
+                new FileChooser.ExtensionFilter("Text Files", "*.txt"),
+                new FileChooser.ExtensionFilter("All Files", "*.*"));
 
         Stage stage = (Stage) filePathField.getScene().getWindow();
         selectedFile = fileChooser.showOpenDialog(stage);
@@ -55,10 +60,14 @@ public class FileController {
     }
 
     @FXML
-    private void onEncryptFile() { processFile(true); }
+    private void onEncryptFile() {
+        processFile(true);
+    }
 
     @FXML
-    private void onDecryptFile() { processFile(false); }
+    private void onDecryptFile() {
+        processFile(false);
+    }
 
     @FXML
     private void onSaveOutput() {

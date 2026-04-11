@@ -13,15 +13,24 @@ public class SettingsController {
     public void initialize() {
         defaultAlgoCombo.getItems().addAll("AES (Recommended)", "Caesar Cipher");
         defaultAlgoCombo.getSelectionModel().selectFirst();
-        settingsThemeToggle.setSelected(true);
+        settingsThemeToggle.setSelected(false);
+        settingsThemeToggle.setText("LIGHT");
     }
 
     @FXML
     private void onToggleTheme() {
         boolean isDark = settingsThemeToggle.isSelected();
         javafx.scene.Scene scene = settingsThemeToggle.getScene();
-        scene.getStylesheets().removeIf(s -> s.contains("dark-theme") || s.contains("light-theme"));
-        String themePath = isDark ? "/ui/css/dark-theme.css" : "/ui/css/light-theme.css";
-        scene.getStylesheets().add(getClass().getResource(themePath).toExternalForm());
+        var root = scene.getRoot();
+
+        if (isDark) {
+            if (!root.getStyleClass().contains("dark-mode")) {
+                root.getStyleClass().add("dark-mode");
+            }
+            settingsThemeToggle.setText("DARK");
+        } else {
+            root.getStyleClass().remove("dark-mode");
+            settingsThemeToggle.setText("LIGHT");
+        }
     }
 }

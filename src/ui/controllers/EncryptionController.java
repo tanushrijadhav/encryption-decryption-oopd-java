@@ -11,15 +11,24 @@ import crypto.EncryptionStrategy;
 
 public class EncryptionController {
 
-    @FXML private ComboBox<String> algorithmSelector;
-    @FXML private TextField keyField;
-    @FXML private TextArea inputArea;
-    @FXML private TextArea outputArea;
-    @FXML private Label inputCharCount;
-    @FXML private Label outputCharCount;
-    @FXML private Label statusLabel;
-    @FXML private Button encryptBtn;
-    @FXML private Button decryptBtn;
+    @FXML
+    private ComboBox<String> algorithmSelector;
+    @FXML
+    private TextField keyField;
+    @FXML
+    private TextArea inputArea;
+    @FXML
+    private TextArea outputArea;
+    @FXML
+    private Label inputCharCount;
+    @FXML
+    private Label outputCharCount;
+    @FXML
+    private Label statusLabel;
+    @FXML
+    private Button encryptBtn;
+    @FXML
+    private Button decryptBtn;
 
     private final EncryptionContext context = new EncryptionContext();
 
