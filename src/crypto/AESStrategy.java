@@ -62,5 +62,4 @@ public class AESStrategy implements EncryptionStrategy {
         keyBytes = Arrays.copyOf(keyBytes, 16);
         return new SecretKeySpec(keyBytes, "AES");
     }
-}git add src/crypto/AESStrategy.java
-git commit -m "Fix AES: ECB→CBC, add IV handling, fix buildKey with SHA-256"
+}
