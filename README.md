@@ -214,19 +214,6 @@ run.bat
 
 ---
 
-## Resume Description
-
-**CipherForge - Encryption Framework with Modular OOP Architecture**
-
-- Designed a pluggable encryption system using the Strategy Pattern
-- Implemented AES-128 CBC and Caesar Cipher encryption algorithms
-- Built a JavaFX-based user interface with FXML and CSS
-- Developed a modular architecture separating UI, logic and utilities
-- Enabled extensibility for adding future encryption techniques
-- Implemented secure key derivation using SHA-256 hashing
-
----
-
 ## Learning Outcomes
 
 - Practical implementation of OOP concepts
