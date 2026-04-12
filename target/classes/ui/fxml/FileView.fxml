@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<!-- Split-screen layout: decorative left + functional right -->
+<HBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ui.controllers.FileController"
+      spacing="0">
+
+    <!-- ═══ Left: Decorative Panel ═══ -->
+    <VBox styleClass="split-left" alignment="BOTTOM_LEFT" spacing="8">
+        <padding><Insets top="40" right="32" bottom="40" left="32"/></padding>
+
+        <Label text="02" styleClass="decorative-number"/>
+        <Label text="FILE" styleClass="view-title"/>
+        <Label text="OPERATIONS" styleClass="view-title"/>
+        <Region prefHeight="16"/>
+        <Label text="Load files from disk, encrypt or decrypt their entire contents, and save the processed output. Supports all text-based file formats." styleClass="view-desc"/>
+    </VBox>
+
+    <!-- ═══ Right: Functional Panel ═══ -->
+    <VBox styleClass="split-right" HBox.hgrow="ALWAYS" spacing="20">
+        <padding><Insets top="32" right="36" bottom="32" left="36"/></padding>
+
+        <!-- File Selection -->
+        <VBox spacing="6">
+            <Label text="FILE" styleClass="field-label"/>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <TextField fx:id="filePathField" HBox.hgrow="ALWAYS" styleClass="studio-input" promptText="No file selected..." editable="false"/>
+                <Button text="BROWSE" styleClass="btn-studio" onAction="#onBrowse"/>
+            </HBox>
+        </VBox>
+
+        <!-- Algorithm + Key -->
+        <HBox spacing="20">
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="ALGORITHM" styleClass="field-label"/>
+                <ComboBox fx:id="fileAlgoSelector" styleClass="studio-combo" maxWidth="Infinity" promptText="Select Algorithm"/>
+            </VBox>
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="KEY" styleClass="field-label"/>
+                <TextField fx:id="fileKeyField" styleClass="studio-input" promptText="Enter key..."/>
+            </VBox>
+        </HBox>
+
+        <!-- Action Buttons -->
+        <HBox spacing="12">
+            <Button text="ENCRYPT FILE" styleClass="btn-studio" onAction="#onEncryptFile"/>
+            <Button text="DECRYPT FILE" styleClass="btn-studio-outline" onAction="#onDecryptFile"/>
+        </HBox>
+
+        <!-- Content Areas -->
+        <HBox spacing="16" VBox.vgrow="ALWAYS">
+            <VBox HBox.hgrow="ALWAYS" spacing="8">
+                <Label text="ORIGINAL CONTENT" styleClass="field-label"/>
+                <TextArea fx:id="fileOriginalContent" VBox.vgrow="ALWAYS" styleClass="studio-textarea" editable="false" wrapText="true" promptText="File content will appear here..."/>
+            </VBox>
+
+            <VBox alignment="CENTER">
+                <Label text="→" styleClass="transform-arrow"/>
+            </VBox>
+
+            <VBox HBox.hgrow="ALWAYS" spacing="8">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="PROCESSED OUTPUT" styleClass="field-label"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="SAVE AS..." styleClass="btn-ghost-studio" onAction="#onSaveOutput"/>
+                </HBox>
+                <TextArea fx:id="fileOutputContent" VBox.vgrow="ALWAYS" styleClass="studio-textarea" editable="false" wrapText="true" promptText="Processed content will appear here..."/>
+            </VBox>
+        </HBox>
+
+        <!-- Status -->
+        <HBox alignment="CENTER_LEFT">
+            <Label fx:id="fileStatusLabel" text="Ready" styleClass="status-label"/>
+        </HBox>
+
+    </VBox>
+
+</HBox>
