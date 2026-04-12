@@ -1,0 +1,47 @@
+@startuml Util Class Diagram
+' ─── Util Package ────────────────────────────────────────────
+' Demonstrates: Utility / Helper class pattern
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultFontName  Arial
+skinparam class {
+    BackgroundColor     #F7F9FC
+    BorderColor         #3B82F6
+    ArrowColor          #64748B
+    FontColor           #1E293B
+}
+
+package "util" #FFF8E1 {
+
+    class FileHandler {
+        + {static} readFile(path : String) : String
+        + {static} writeFile(path : String, data : String) : void
+    }
+
+}
+
+package "java.nio.file" #F3E5F5 {
+    class Files <<JDK>> {
+        + {static} readAllBytes(path : Path) : byte[]
+        + {static} write(path : Path, bytes : byte[]) : Path
+    }
+
+    class Paths <<JDK>> {
+        + {static} get(uri : String) : Path
+    }
+}
+
+FileHandler ..> Files  : uses
+FileHandler ..> Paths  : uses
+
+note bottom of FileHandler
+  **Utility Class**
+  Static helper for file I/O.
+  Wraps java.nio.file API and
+  converts IOExceptions into
+  RuntimeExceptions for simpler
+  error handling in controllers.
+end note
+
+@enduml

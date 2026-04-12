@@ -1,0 +1,56 @@
+@startuml Exceptions Class Diagram
+' ─── Exceptions Package ──────────────────────────────────────
+' Demonstrates: Custom Exception Hierarchy, Inheritance
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultFontName  Arial
+skinparam class {
+    BackgroundColor     #F7F9FC
+    BorderColor         #3B82F6
+    ArrowColor          #64748B
+    FontColor           #1E293B
+}
+
+package "java.lang" #FFF3E0 {
+    abstract class Exception {
+        + Exception(message : String)
+        + Exception(message : String, cause : Throwable)
+        + getMessage() : String
+    }
+}
+
+package "exceptions" #FFEBEE {
+
+    class EncryptionException {
+        + EncryptionException(message : String)
+        + EncryptionException(message : String, cause : Throwable)
+    }
+
+    class InvalidKeyException {
+        + InvalidKeyException(message : String)
+        + InvalidKeyException(message : String, cause : Throwable)
+    }
+
+}
+
+EncryptionException --|> Exception  : extends
+InvalidKeyException --|> Exception  : extends
+
+note bottom of EncryptionException
+  Thrown when an encryption
+  or decryption operation fails.
+end note
+
+note bottom of InvalidKeyException
+  Thrown when the provided
+  encryption key is invalid.
+end note
+
+note top of "exceptions"
+  **Custom Exception Hierarchy**
+  Both exceptions are checked (extend Exception)
+  and support chained causes for debugging.
+end note
+
+@enduml

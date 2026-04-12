@@ -1,0 +1,98 @@
+@startuml Crypto Class Diagram
+' ─── Crypto Package ──────────────────────────────────────────
+' Demonstrates: Strategy Pattern, Factory Pattern,
+'               Interface Segregation, Open/Closed Principle
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultFontName  Arial
+skinparam class {
+    BackgroundColor     #F7F9FC
+    BorderColor         #3B82F6
+    ArrowColor          #64748B
+    FontColor           #1E293B
+}
+
+package "crypto" #E8F5E9 {
+
+    interface EncryptionStrategy <<interface>> {
+        + encrypt(data : String, key : String) : String
+        + decrypt(data : String, key : String) : String
+    }
+
+    class AESStrategy {
+        - {static} KEY_LENGTH_BITS : int = 256
+        - {static} SALT_LENGTH_BYTES : int = 16
+        - {static} IV_LENGTH_BYTES : int = 12
+        - {static} AUTH_TAG_BITS : int = 128
+        - {static} PBKDF2_ITERATIONS : int = 100000
+        - {static} KEY_ALGORITHM : String = "PBKDF2WithHmacSHA256"
+        - {static} CIPHER_ALGO : String = "AES/GCM/NoPadding"
+        + encrypt(data : String, key : String) : String
+        + decrypt(data : String, key : String) : String
+        - deriveKey(password : String, salt : byte[]) : SecretKeySpec
+    }
+
+    class BlowfishStrategy {
+        - {static} KEY_LENGTH_BITS : int = 128
+        - {static} SALT_LENGTH_BYTES : int = 16
+        - {static} IV_LENGTH_BYTES : int = 8
+        - {static} PBKDF2_ITERATIONS : int = 100000
+        - {static} KEY_ALGORITHM : String = "PBKDF2WithHmacSHA256"
+        - {static} CIPHER_ALGO : String = "Blowfish/CBC/PKCS5Padding"
+        + encrypt(data : String, key : String) : String
+        + decrypt(data : String, key : String) : String
+        - deriveKey(password : String, salt : byte[]) : SecretKeySpec
+    }
+
+    class CaesarStrategy {
+        + encrypt(data : String, key : String) : String
+        + decrypt(data : String, key : String) : String
+    }
+
+    class StrategyFactory <<Factory>> {
+        + {static} create(algorithmName : String) : EncryptionStrategy
+    }
+
+}
+
+AESStrategy      ..|> EncryptionStrategy : implements
+BlowfishStrategy ..|> EncryptionStrategy : implements
+CaesarStrategy   ..|> EncryptionStrategy : implements
+
+StrategyFactory ..> AESStrategy      : <<creates>>
+StrategyFactory ..> BlowfishStrategy : <<creates>>
+StrategyFactory ..> CaesarStrategy   : <<creates>>
+StrategyFactory ..> EncryptionStrategy : returns
+
+note top of EncryptionStrategy
+  **Strategy Pattern — Strategy role**
+  Common interface for all
+  encryption algorithms.
+end note
+
+note bottom of StrategyFactory
+  **Factory Method Pattern**
+  Decouples client code from
+  concrete strategy classes.
+  Supports Open/Closed Principle.
+end note
+
+note right of AESStrategy
+  AES-256-GCM with PBKDF2
+  key derivation. Production-
+  grade authenticated encryption.
+end note
+
+note right of BlowfishStrategy
+  Blowfish-CBC with PBKDF2
+  key derivation. 64-bit
+  block cipher by Schneier.
+end note
+
+note right of CaesarStrategy
+  Simple character-shift cipher.
+  For educational purposes only.
+end note
+
+@enduml

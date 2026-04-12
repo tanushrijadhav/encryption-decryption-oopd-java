@@ -1,0 +1,43 @@
+@startuml Context Class Diagram
+' ─── Context Package ─────────────────────────────────────────
+' Demonstrates: Strategy Pattern (GoF) — Context role
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultFontName  Arial
+skinparam class {
+    BackgroundColor     #F7F9FC
+    BorderColor         #3B82F6
+    ArrowColor          #64748B
+    FontColor           #1E293B
+}
+
+package "context" #EAEFF8 {
+
+    class EncryptionContext {
+        - strategy : EncryptionStrategy
+        + setStrategy(strategy : EncryptionStrategy) : void
+        + encrypt(data : String, key : String) : String
+        + decrypt(data : String, key : String) : String
+    }
+
+}
+
+package "crypto" #E8F5E9 {
+    interface EncryptionStrategy <<interface>> {
+        + encrypt(data : String, key : String) : String
+        + decrypt(data : String, key : String) : String
+    }
+}
+
+EncryptionContext o--> "1" EncryptionStrategy : strategy\n(composition)
+
+note right of EncryptionContext
+  **Strategy Pattern — Context role**
+  Delegates encrypt/decrypt calls
+  to the currently set strategy.
+  Throws IllegalStateException
+  if no strategy is assigned.
+end note
+
+@enduml
