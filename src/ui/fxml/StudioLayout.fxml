@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<!-- Root layout: StackPane (for overlays) containing a BorderPane (for edge labels + content) -->
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="ui.controllers.StudioController"
+           stylesheets="@../css/studio-theme.css, @../css/studio-base.css">
+
+    <!-- ═══ Main Structure ═══ -->
+    <BorderPane>
+
+        <!-- ── Top Bar ──────────────────────────────────────────── -->
+        <top>
+            <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="16">
+                <Label fx:id="appTitle" text="CIPHERFORGE" styleClass="app-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </top>
+
+        <!-- ── Left Edge: MENU label ────────────────────────────── -->
+        <left>
+            <VBox styleClass="edge-label-container" alignment="CENTER" onMouseClicked="#onToggleMenu">
+                <Label text="M E N U" styleClass="edge-label"/>
+            </VBox>
+        </left>
+
+        <!-- ── Right Edge: CONTACTS label ───────────────────────── -->
+        <right>
+            <VBox styleClass="edge-label-container" alignment="CENTER" onMouseClicked="#onToggleContact">
+                <Label text="I N F O" styleClass="edge-label edge-label-right"/>
+            </VBox>
+        </right>
+
+        <!-- ── Center: View content area ────────────────────────── -->
+        <center>
+            <StackPane fx:id="contentArea"/>
+        </center>
+
+        <!-- ── Bottom Bar ───────────────────────────────────────── -->
+        <bottom>
+            <HBox styleClass="bottom-bar" alignment="CENTER_LEFT" spacing="16">
+                <Label text="© 2026 CIPHERFORGE" styleClass="bottom-text"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="STRATEGY PATTERN • MVC • COMPOSITION" styleClass="bottom-text"/>
+            </HBox>
+        </bottom>
+
+    </BorderPane>
+
+    <!-- ═══ Overlay Container (Menu + Contact) ═══ -->
+    <StackPane fx:id="overlayContainer" visible="false" mouseTransparent="true">
+
+        <!-- Menu Overlay -->
+        <VBox fx:id="menuOverlay" styleClass="overlay" alignment="CENTER" spacing="32" visible="false">
+            <padding><Insets top="60" right="60" bottom="60" left="60"/></padding>
+
+            <!-- Close button -->
+            <HBox alignment="TOP_RIGHT">
+                <Button text="✕  CLOSE" styleClass="overlay-close" onAction="#onCloseMenu"/>
+            </HBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- Nav links -->
+            <Label text="HOME" styleClass="overlay-title" onMouseClicked="#onMenuHome"/>
+            <Label text="ENCRYPT" styleClass="overlay-title" onMouseClicked="#onMenuEncrypt"/>
+            <Label text="FILES" styleClass="overlay-title" onMouseClicked="#onMenuFiles"/>
+            <Label text="SETTINGS" styleClass="overlay-title" onMouseClicked="#onMenuSettings"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Label text="NAVIGATE THROUGH CIPHERFORGE" styleClass="overlay-subtitle"/>
+        </VBox>
+
+        <!-- Contact / Info Overlay -->
+        <VBox fx:id="contactOverlay" styleClass="overlay" alignment="CENTER" spacing="24" visible="false">
+            <padding><Insets top="60" right="80" bottom="60" left="80"/></padding>
+
+            <!-- Close button -->
+            <HBox alignment="TOP_RIGHT">
+                <Button text="✕  CLOSE" styleClass="overlay-close" onAction="#onCloseContact"/>
+            </HBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Label text="ABOUT" styleClass="overlay-title"/>
+
+            <VBox alignment="CENTER" spacing="12">
+                <Label text="CIPHERFORGE" styleClass="overlay-heading"/>
+                <Label text="A premium encryption suite built with JavaFX." styleClass="overlay-body"/>
+            </VBox>
+
+            <VBox alignment="CENTER" spacing="8">
+                <padding><Insets top="32"/></padding>
+                <Label text="TEAM" styleClass="overlay-heading"/>
+                <Label text="Advait Gajewar  •  Tanushka Gulhane  •  Tanushri Jadhav" styleClass="overlay-body"/>
+            </VBox>
+
+            <VBox alignment="CENTER" spacing="8">
+                <padding><Insets top="24"/></padding>
+                <Label text="VERSION" styleClass="overlay-heading"/>
+                <Label text="v1.0.0" styleClass="overlay-body"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+        </VBox>
+
+    </StackPane>
+
+</StackPane>

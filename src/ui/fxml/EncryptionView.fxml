@@ -4,60 +4,73 @@
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
+<!-- Split-screen layout: decorative left + functional right -->
+<HBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="ui.controllers.EncryptionController"
-      spacing="24" styleClass="encryption-view">
+      spacing="0">
 
-    <!-- Algorithm + Key + Actions -->
-    <HBox spacing="16">
-        <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="12">
-            <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
-            <Label text="Algorithm" styleClass="field-label"/>
-            <ComboBox fx:id="algorithmSelector" styleClass="algo-combo" maxWidth="Infinity" promptText="Select Algorithm"/>
-        </VBox>
-        <VBox styleClass="card" HBox.hgrow="ALWAYS" spacing="12">
-            <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
-            <Label text="Encryption Key" styleClass="field-label"/>
-            <TextField fx:id="keyField" styleClass="key-input" promptText="Enter your secret key..."/>
-        </VBox>
-        <VBox styleClass="card" spacing="12">
-            <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
-            <Label text="Action" styleClass="field-label"/>
-            <HBox spacing="8">
-                <Button fx:id="encryptBtn" text="Encrypt" styleClass="btn-primary" onAction="#onEncrypt"/>
-                <Button fx:id="decryptBtn" text="Decrypt" styleClass="btn-secondary" onAction="#onDecrypt"/>
-            </HBox>
-        </VBox>
-    </HBox>
+    <!-- ═══ Left: Decorative Panel ═══ -->
+    <VBox styleClass="split-left" alignment="BOTTOM_LEFT" spacing="8">
+        <padding><Insets top="40" right="32" bottom="40" left="32"/></padding>
 
-    <!-- Input / Output -->
-    <HBox spacing="20" VBox.vgrow="ALWAYS">
-        <VBox HBox.hgrow="ALWAYS" styleClass="card" spacing="12">
-            <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
-            <HBox alignment="CENTER_LEFT">
-                <Label text="Input" styleClass="card-title"/>
-                <Region HBox.hgrow="ALWAYS"/>
-                <Button text="Clear" styleClass="btn-ghost" onAction="#onClearInput"/>
-            </HBox>
-            <TextArea fx:id="inputArea" VBox.vgrow="ALWAYS" styleClass="code-area" promptText="Enter text to encrypt or decrypt..." wrapText="true"/>
-            <Label fx:id="inputCharCount" text="0 characters" styleClass="char-count"/>
-        </VBox>
+        <Label text="01" styleClass="decorative-number"/>
+        <Label text="ENCRYPT" styleClass="view-title"/>
+        <Label text="DECRYPT" styleClass="view-title"/>
+        <Region prefHeight="16"/>
+        <Label text="Transform your data using industry-standard encryption algorithms. AES-128-CBC and Blowfish-CBC for production security, Caesar for educational purposes." styleClass="view-desc"/>
+    </VBox>
 
-        <VBox alignment="CENTER"><Label text="&#x2192;" styleClass="transform-arrow"/></VBox>
+    <!-- ═══ Right: Functional Panel ═══ -->
+    <VBox styleClass="split-right" HBox.hgrow="ALWAYS" spacing="20">
+        <padding><Insets top="32" right="36" bottom="32" left="36"/></padding>
 
-        <VBox HBox.hgrow="ALWAYS" styleClass="card" spacing="12">
-            <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
-            <HBox alignment="CENTER_LEFT">
-                <Label text="Output" styleClass="card-title"/>
-                <Region HBox.hgrow="ALWAYS"/>
-                <Button text="Copy" styleClass="btn-ghost" onAction="#onCopyOutput"/>
-            </HBox>
-            <TextArea fx:id="outputArea" VBox.vgrow="ALWAYS" styleClass="code-area" promptText="Result will appear here..." wrapText="true" editable="false"/>
-            <HBox alignment="CENTER_LEFT" spacing="8">
-                <Label fx:id="outputCharCount" text="0 characters" styleClass="char-count"/>
-                <Region HBox.hgrow="ALWAYS"/>
-                <Label fx:id="statusLabel" text="" styleClass="status-label"/>
-            </HBox>
-        </VBox>
-    </HBox>
-</VBox>
+        <!-- Algorithm + Key -->
+        <HBox spacing="20">
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="ALGORITHM" styleClass="field-label"/>
+                <ComboBox fx:id="algorithmSelector" styleClass="studio-combo" maxWidth="Infinity" promptText="Select Algorithm"/>
+            </VBox>
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="ENCRYPTION KEY" styleClass="field-label"/>
+                <TextField fx:id="keyField" styleClass="studio-input" promptText="Enter your secret key..."/>
+            </VBox>
+        </HBox>
+
+        <!-- Action Buttons -->
+        <HBox spacing="12">
+            <Button fx:id="encryptBtn" text="ENCRYPT" styleClass="btn-studio" onAction="#onEncrypt"/>
+            <Button fx:id="decryptBtn" text="DECRYPT" styleClass="btn-studio-outline" onAction="#onDecrypt"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="CLEAR" styleClass="btn-ghost-studio" onAction="#onClearInput"/>
+        </HBox>
+
+        <!-- Input / Output Areas -->
+        <HBox spacing="16" VBox.vgrow="ALWAYS">
+            <VBox HBox.hgrow="ALWAYS" spacing="8">
+                <Label text="INPUT" styleClass="field-label"/>
+                <TextArea fx:id="inputArea" VBox.vgrow="ALWAYS" styleClass="studio-textarea" promptText="Enter text to encrypt or decrypt..." wrapText="true"/>
+                <Label fx:id="inputCharCount" text="0 characters" styleClass="char-count"/>
+            </VBox>
+
+            <VBox alignment="CENTER">
+                <Label text="→" styleClass="transform-arrow"/>
+            </VBox>
+
+            <VBox HBox.hgrow="ALWAYS" spacing="8">
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="OUTPUT" styleClass="field-label"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="COPY" styleClass="btn-ghost-studio" onAction="#onCopyOutput"/>
+                </HBox>
+                <TextArea fx:id="outputArea" VBox.vgrow="ALWAYS" styleClass="studio-textarea" promptText="Result will appear here..." wrapText="true" editable="false"/>
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <Label fx:id="outputCharCount" text="0 characters" styleClass="char-count"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="statusLabel" text="" styleClass="status-label"/>
+                </HBox>
+            </VBox>
+        </HBox>
+
+    </VBox>
+
+</HBox>

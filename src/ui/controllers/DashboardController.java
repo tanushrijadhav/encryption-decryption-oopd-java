@@ -23,11 +23,13 @@ public class DashboardController {
 
     private void populateActivityList() {
         String[][] activities = {
-            {"AES Encryption",     "document.txt",  "2 min ago",  "ok"},
-            {"Caesar Decryption",  "message.txt",   "15 min ago", "ok"},
-            {"AES Encryption",     "secrets.dat",   "1 hr ago",   "ok"},
-            {"Caesar Encryption",  "notes.txt",     "3 hrs ago",  "ok"},
-            {"AES Decryption",     "backup.enc",    "5 hrs ago",  "fail"},
+            {"AES Encryption",      "document.txt",  "2 min ago",  "ok"},
+            {"Blowfish Encryption", "credentials.dat","10 min ago", "ok"},
+            {"Caesar Decryption",   "message.txt",   "15 min ago", "ok"},
+            {"AES Encryption",      "secrets.dat",   "1 hr ago",   "ok"},
+            {"Blowfish Decryption", "archive.enc",   "2 hrs ago",  "ok"},
+            {"Caesar Encryption",   "notes.txt",     "3 hrs ago",  "ok"},
+            {"AES Decryption",      "backup.enc",    "5 hrs ago",  "fail"},
         };
 
         for (String[] a : activities) {
