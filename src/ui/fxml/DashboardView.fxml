@@ -37,7 +37,7 @@
             <HBox alignment="CENTER_LEFT" spacing="12">
                 <StackPane styleClass="kpi-icon-container,kpi-icon-purple"><Label text="&#x26A1;" styleClass="kpi-icon"/></StackPane>
                 <Region HBox.hgrow="ALWAYS"/>
-                <Label text="AES-128" styleClass="kpi-badge"/>
+                <Label text="AES-CBC" styleClass="kpi-badge"/>
             </HBox>
             <Label fx:id="activeAlgoValue" text="AES" styleClass="kpi-value"/>
             <Label text="Active Algorithm" styleClass="kpi-label"/>
@@ -76,11 +76,7 @@
                 </VBox>
                 <VBox alignment="BOTTOM_CENTER" spacing="6">
                     <Region styleClass="bar-chart-bar,bar-indigo" prefWidth="48" prefHeight="55"/>
-                    <Label text="RSA" styleClass="bar-label"/>
-                </VBox>
-                <VBox alignment="BOTTOM_CENTER" spacing="6">
-                    <Region styleClass="bar-chart-bar,bar-teal" prefWidth="48" prefHeight="35"/>
-                    <Label text="DES" styleClass="bar-label"/>
+                    <Label text="Blowfish" styleClass="bar-label"/>
                 </VBox>
             </HBox>
         </VBox>

@@ -1,0 +1,192 @@
+@startuml UI Class Diagram
+' ─── UI Package ──────────────────────────────────────────────
+' Demonstrates: MVC Pattern, Observer Pattern (FXML bindings),
+'               Dependency Injection (controller references)
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultFontName  Arial
+skinparam class {
+    BackgroundColor     #F7F9FC
+    BorderColor         #3B82F6
+    ArrowColor          #64748B
+    FontColor           #1E293B
+}
+
+package "ui.controllers" #E3F2FD {
+
+    class StudioController {
+        - contentArea : StackPane
+        - overlayContainer : StackPane
+        - menuOverlay : VBox
+        - contactOverlay : VBox
+        - appTitle : Label
+        - homeView : Node
+        - encryptionView : Node
+        - fileView : Node
+        - settingsView : Node
+        - currentView : String
+        - isDarkMode : boolean
+        + initialize() : void
+        + navigateTo(viewName : String) : void
+        + toggleDarkMode() : void
+        - onToggleMenu() : void
+        - openMenuOverlay() : void
+        - closeMenuOverlay() : void
+        - onToggleContact() : void
+        - openContactOverlay() : void
+        - closeContactOverlay() : void
+        - onMenuHome() : void
+        - onMenuEncrypt() : void
+        - onMenuFiles() : void
+        - onMenuSettings() : void
+        - onCloseMenu() : void
+        - onCloseContact() : void
+    }
+
+    class MainController {
+        - contentArea : StackPane
+        - pageTitle : Label
+        - pageSubtitle : Label
+        - searchField : TextField
+        - themeToggle : ToggleButton
+        - themeLabel : Label
+        - navDashboard : HBox
+        - navEncrypt : HBox
+        - navFiles : HBox
+        - navSettings : HBox
+        - activeNavItem : HBox
+        - isDarkMode : boolean
+        - dashboardView : Node
+        - encryptionView : Node
+        - fileView : Node
+        - settingsView : Node
+        + initialize() : void
+        - onNavDashboard() : void
+        - onNavEncrypt() : void
+        - onNavFiles() : void
+        - onNavSettings() : void
+        - onThemeToggle() : void
+        - setActiveNav(navItem : HBox) : void
+        - setPageHeader(title : String, subtitle : String) : void
+        - loadView(viewName : String) : void
+        - applyTheme() : void
+    }
+
+    class HomeController {
+        - heroTitle : Label
+        - heroSubtitle : Label
+        - scrollPrompt : Label
+        - cardContainer : HBox
+        - studioController : StudioController
+        + setStudioController(sc : StudioController) : void
+        + initialize() : void
+        - animateEntrance() : void
+        - onCardEncrypt() : void
+        - onCardFiles() : void
+        - onCardSettings() : void
+    }
+
+    class EncryptionController {
+        - algorithmSelector : ComboBox<String>
+        - keyField : TextField
+        - inputArea : TextArea
+        - outputArea : TextArea
+        - inputCharCount : Label
+        - outputCharCount : Label
+        - statusLabel : Label
+        - encryptBtn : Button
+        - decryptBtn : Button
+        - context : EncryptionContext
+        + initialize() : void
+        - onEncrypt() : void
+        - onDecrypt() : void
+        - onClearInput() : void
+        - onCopyOutput() : void
+        - processText(encrypt : boolean) : void
+        - showError(message : String) : void
+    }
+
+    class FileController {
+        - filePathField : TextField
+        - fileAlgoSelector : ComboBox<String>
+        - fileKeyField : TextField
+        - fileOriginalContent : TextArea
+        - fileOutputContent : TextArea
+        - fileStatusLabel : Label
+        - context : EncryptionContext
+        - selectedFile : File
+        + initialize() : void
+        - onBrowse() : void
+        - onEncryptFile() : void
+        - onDecryptFile() : void
+        - onSaveOutput() : void
+        - processFile(encrypt : boolean) : void
+    }
+
+    class DashboardController {
+        - totalOpsValue : Label
+        - successValue : Label
+        - activeAlgoValue : Label
+        - failedValue : Label
+        - activityList : VBox
+        + initialize() : void
+        - populateActivityList() : void
+    }
+
+    class SettingsController {
+        - settingsThemeToggle : ToggleButton
+        - defaultAlgoCombo : ComboBox<String>
+        + initialize() : void
+        - onToggleTheme() : void
+    }
+
+}
+
+package "context" #EAEFF8 {
+    class EncryptionContext
+}
+
+package "crypto" #E8F5E9 {
+    class StrategyFactory
+}
+
+package "util" #FFF8E1 {
+    class FileHandler
+}
+
+' ── Relationships ─────────────────────────────────
+
+StudioController --> HomeController          : loads & injects self
+StudioController --> EncryptionController    : loads view
+StudioController --> FileController          : loads view
+StudioController --> SettingsController       : loads view
+
+MainController   --> DashboardController     : loads view
+MainController   --> EncryptionController    : loads view
+MainController   --> FileController          : loads view
+MainController   --> SettingsController       : loads view
+
+HomeController   --> StudioController        : studioController\n(navigates)
+
+EncryptionController --> EncryptionContext    : uses
+EncryptionController --> StrategyFactory      : creates strategy
+
+FileController       --> EncryptionContext    : uses
+FileController       --> StrategyFactory      : creates strategy
+FileController       --> FileHandler          : reads/writes files
+
+note top of StudioController
+  **Root Controller (9to5 Studio layout)**
+  Manages view switching with
+  fade + slide animations and
+  overlay menus.
+end note
+
+note bottom of EncryptionController
+  **Text encryption view**
+  Uses Strategy Pattern via
+  EncryptionContext + StrategyFactory.
+end note
+
+@enduml
