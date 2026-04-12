@@ -1,4 +1,4 @@
-# CipherForge — Modular Encryption Suite
+# CipherForge: Modular Encryption Suite
 
 CipherForge is a modular encryption and decryption platform built in Java using JavaFX. It demonstrates strong object-oriented design principles, a clean separation of concerns and an extensible architecture for implementing multiple encryption algorithms.
 
