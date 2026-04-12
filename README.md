@@ -1,8 +1,8 @@
 # CipherForge — Modular Encryption Suite
 
-CipherForge is a modular encryption and decryption platform built in Java using JavaFX. It demonstrates strong object-oriented design principles, a clean separation of concerns, and an extensible architecture for implementing multiple encryption algorithms.
+CipherForge is a modular encryption and decryption platform built in Java using JavaFX. It demonstrates strong object-oriented design principles, a clean separation of concerns and an extensible architecture for implementing multiple encryption algorithms.
 
-> ⚠️ **Status: Work in Progress** — This project is actively being developed as part of an OOPD Mini Project. Features marked 🚧 are planned but not yet implemented.
+> ⚠️ **Status: Work in Progress** - This project is actively being developed as part of an OOPD Mini Project. Features marked 🚧 are planned but not yet implemented.
 
 ---
 
@@ -28,9 +28,9 @@ The project focuses on:
 | `AESStrategy` (CBC mode)          | ✅ Done          |
 | `FileEncryptionUtil`              | ✅ Done          |
 | `EncryptionContext`               | ✅ Done          |
-| `FileHandler`                     | 🚧 In Progress   |
-| `EncryptionException`             | 🚧 In Progress   |
-| `InvalidKeyException`             | 🚧 In Progress   |
+| `FileHandler`                     | ✅ Done          |
+| `EncryptionException`             | ✅ Done          |
+| `InvalidKeyException`             | ✅ Done          |
 | JavaFX UI (FXML + CSS)            | ✅ Done          |
 | `MainApp` entry point             | ✅ Done          |
 | UML Diagrams                      | 🚧 In Progress   |
@@ -143,7 +143,7 @@ Encrypts any file type using AES internally.
 |-------------------------|---------------------------------------------------------------------------------------------------------------------|
 | CBC mode instead of ECB | ECB leaks patterns — identical blocks produce identical ciphertext. CBC chains each block to the previous output.   |
 | SHA-256 key derivation  | AES needs exactly 16 bytes. SHA-256 converts any password to a fixed output. Zero-padding is guessable.             |
-| SecureRandom for IV     | Regular Random is predictable if seed is known. SecureRandom uses hardware entropy — truly unpredictable.           |
+| SecureRandom for IV     | Regular Random is predictable if seed is known. SecureRandom uses hardware entropy, truly unpredictable.            |
 | IV prepended to output  | Decryptor needs same IV. Stored as first 16 bytes of output.                                                        |
 | Base64 encoding         | Raw bytes corrupt in String form. Base64 is safe and printable.                                                     |
 
@@ -193,11 +193,11 @@ run.bat
 
 ## Team Contribution
 
-| Member | Responsibility                             | Modules                            |
-|--------|--------------------------------------------|------------------------------------|
-| TJ     | Crypto logic — Caesar, AES, interface      | `crypto/`                          |
-| TG     | Context, File Handling, Exceptions         | `context/`, `util/`, `exceptions/` |
-| AG     | MainApp, UI, Integration                   | `ui/`, `MainApp.java`              |
+| Member             | Responsibility                             | Modules                            |
+|--------------------|--------------------------------------------|------------------------------------|
+| Tanushri Jadhav    | Crypto logic - Caesar, AES, interface      | `crypto/`                          |
+| Tanushka Gulhane   | Context, File Handling, Exceptions         | `context/`, `util/`, `exceptions/` |
+| Advait Gajewar     | MainApp, UI, Integration                   | `ui/`, `MainApp.java`              |
 
 ---
 
@@ -216,12 +216,12 @@ run.bat
 
 ## Resume Description
 
-**CipherForge — Encryption Framework with Modular OOP Architecture**
+**CipherForge - Encryption Framework with Modular OOP Architecture**
 
 - Designed a pluggable encryption system using the Strategy Pattern
 - Implemented AES-128 CBC and Caesar Cipher encryption algorithms
 - Built a JavaFX-based user interface with FXML and CSS
-- Developed a modular architecture separating UI, logic, and utilities
+- Developed a modular architecture separating UI, logic and utilities
 - Enabled extensibility for adding future encryption techniques
 - Implemented secure key derivation using SHA-256 hashing
 
@@ -243,4 +243,4 @@ This project is for educational and demonstration purposes.
 
 ---
 
-OOPD Mini Project — actively being developed
+OOPD Mini Project - actively being developed
