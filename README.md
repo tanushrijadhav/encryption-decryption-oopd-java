@@ -33,7 +33,7 @@ The project focuses on:
 | `InvalidKeyException`             | ✅ Done          |
 | JavaFX UI (FXML + CSS)            | ✅ Done          |
 | `MainApp` entry point             | ✅ Done          |
-| UML Diagrams                      | 🚧 In Progress   |
+| UML Diagrams                      | ✅ Done   |
 
 ---
 
