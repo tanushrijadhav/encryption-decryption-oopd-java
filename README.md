@@ -2,7 +2,6 @@
 
 CipherForge is a modular encryption and decryption platform built in Java using JavaFX. It demonstrates strong object-oriented design principles, a clean separation of concerns and an extensible architecture for implementing multiple encryption algorithms.
 
-> ⚠️ **Status: Work in Progress** - This project is actively being developed as part of an OOPD Mini Project. Features marked 🚧 are planned but not yet implemented.
 
 ---
 
