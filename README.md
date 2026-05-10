@@ -200,19 +200,6 @@ run.bat
 
 ---
 
-## Future Improvements
-
-| Improvement                  | Description                              |
-|------------------------------|------------------------------------------|
-| RSA and modern algorithms    | Extend beyond AES and Caesar             |
-| Encryption pipelines         | Multi-layer encryption support           |
-| File drag-and-drop           | Easier file selection in UI              |
-| Secure key management        | Proper key storage and validation        |
-| Performance metrics          | Benchmark AES vs Caesar                  |
-| Password strength validation | Reject weak keys before encryption       |
-
----
-
 ## Learning Outcomes
 
 - Practical implementation of OOP concepts
@@ -229,4 +216,4 @@ This project is for educational and demonstration purposes.
 
 ---
 
-OOPD Mini Project - actively being developed
+OOPD Mini Project
