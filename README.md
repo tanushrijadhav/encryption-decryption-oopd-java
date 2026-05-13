@@ -140,7 +140,7 @@ Encrypts any file type using AES internally.
 
 | Decision                | Reason                                                                                                              |
 |-------------------------|---------------------------------------------------------------------------------------------------------------------|
-| CBC mode instead of ECB | ECB leaks patterns — identical blocks produce identical ciphertext. CBC chains each block to the previous output.   |
+| CBC mode instead of ECB | ECB leaks patterns - identical blocks produce identical ciphertext. CBC chains each block to the previous output.   |
 | SHA-256 key derivation  | AES needs exactly 16 bytes. SHA-256 converts any password to a fixed output. Zero-padding is guessable.             |
 | SecureRandom for IV     | Regular Random is predictable if seed is known. SecureRandom uses hardware entropy, truly unpredictable.            |
 | IV prepended to output  | Decryptor needs same IV. Stored as first 16 bytes of output.                                                        |
