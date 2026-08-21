@@ -190,16 +190,6 @@ run.bat
 
 ---
 
-## Team Contribution
-
-| Member             | Responsibility                             | Modules                            |
-|--------------------|--------------------------------------------|------------------------------------|
-| Tanushri Jadhav    | Crypto logic - Caesar, AES, interface      | `crypto/`                          |
-| Tanushka Gulhane   | Context, File Handling, Exceptions         | `context/`, `util/`, `exceptions/` |
-| Advait Gajewar     | MainApp, UI, Integration                   | `ui/`, `MainApp.java`              |
-
----
-
 ## Learning Outcomes
 
 - Practical implementation of OOP concepts
