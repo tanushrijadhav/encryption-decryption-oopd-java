@@ -22,17 +22,17 @@ The project focuses on:
 
 | Feature                           | Status           |
 |-----------------------------------|------------------|
-| `EncryptionStrategy` interface    | ✅ Done          |
-| `CaesarStrategy`                  | ✅ Done          |
-| `AESStrategy` (CBC mode)          | ✅ Done          |
-| `FileEncryptionUtil`              | ✅ Done          |
-| `EncryptionContext`               | ✅ Done          |
-| `FileHandler`                     | ✅ Done          |
-| `EncryptionException`             | ✅ Done          |
-| `InvalidKeyException`             | ✅ Done          |
-| JavaFX UI (FXML + CSS)            | ✅ Done          |
-| `MainApp` entry point             | ✅ Done          |
-| UML Diagrams                      | ✅ Done   |
+| `EncryptionStrategy` interface    |  Done          |
+| `CaesarStrategy`                  |  Done          |
+| `AESStrategy` (CBC mode)          |  Done          |
+| `FileEncryptionUtil`              |  Done          |
+| `EncryptionContext`               |  Done          |
+| `FileHandler`                     |  Done          |
+| `EncryptionException`             |  Done          |
+| `InvalidKeyException`             |  Done          |
+| JavaFX UI (FXML + CSS)            |  Done          |
+| `MainApp` entry point             |  Done          |
+| UML Diagrams                      |  Done   |
 
 ---
 
