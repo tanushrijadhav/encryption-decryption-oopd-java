@@ -175,7 +175,7 @@ User Input → MainApp → EncryptionContext → Strategy → Output
 
 ## How to Run
 
-> 🚧 Full setup instructions will be added once the project compiles end-to-end.
+> Full setup instructions will be added once the project compiles end-to-end.
 
 Requirements: JDK 17+, JavaFX SDK. No external dependencies.
 
